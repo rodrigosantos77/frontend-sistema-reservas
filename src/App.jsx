@@ -1,12 +1,8 @@
 
-import Login from './pages/Login';
+import AppRoutes from './AppRoutes';
 
 function App() {
-  return (
-    <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
-      <Login />
-    </div>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
