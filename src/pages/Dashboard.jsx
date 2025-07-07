@@ -47,6 +47,24 @@ const Dashboard = () => {
         Sair
       </button>
 
+        {/* Botão Nova Reserva */}
+      <button
+        onClick={() => navigate('/nova-reserva')}
+        style={{
+          backgroundColor: '#3498db',
+          color: '#fff',
+          padding: '10px 20px',
+          border: 'none',
+          borderRadius: 5,
+          cursor: 'pointer',
+          marginBottom: 20,
+          marginLeft: 10
+        }}
+      >
+        Nova Reserva
+      </button>
+
+      {/* Botão MInhas Reserva */}  
       <h2>Minhas Reservas</h2>
       {reservas.length === 0 ? (
         <p>Você não tem reservas cadastradas.</p>
