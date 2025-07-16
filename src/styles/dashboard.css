@@ -1,20 +1,52 @@
-.dashboard-container {
-  display: flex;
-  font-family: "Georgia", serif;
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
+/* Reset básico */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Georgia', serif;
+  background-color: #2d2d2d;
+}
+
+body {
+  display: block;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #2d2d2d;
+}
+
+
+
+/* Layout principal */
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Sidebar mais estreita */
 .sidebar {
-  background: #a97e3e;
-  width: 250px;
+  background: #b88644;
+  width: 220px;
   color: #2d2d2d;
-  padding: 1.5rem;
-  border-right: 4px solid #7b5a28;
+  padding: 2rem 1.2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  border-right: 3px solid #996633;
 }
 
 .sidebar h2 {
+  font-size: 1.5rem;
   margin-bottom: 2rem;
 }
 
@@ -24,7 +56,8 @@
 }
 
 .sidebar-nav li {
-  margin: 1rem 0;
+  margin: 1.2rem 0;
+  font-size: 1rem;
   cursor: pointer;
 }
 
@@ -35,65 +68,89 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  align-self: flex-start;
+  margin-top: 2rem;
 }
 
+/* Área principal fluida */
 .dashboard-main {
-  flex-grow: 1;
-  padding: 2rem;
-  background: #f5e6c6;
+  flex: 1;
+  padding: 2rem 3rem;
+  background: #f9f0dc;
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Título */
+.dashboard-main h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #2d2d2d;
+}
+
+/* Cartões de reserva */
 .reserva-card {
   display: flex;
-  justify-content: space-between;
-  background: #fdf4dd;
-  padding: 1rem;
-  border-radius: 12px;
-  margin-bottom: 1rem;
   align-items: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-
-.reserva-card img {
-  width: 120px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-right: 1rem;
+  justify-content: space-between;
+  background: #fff7e6;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .reserva-info {
   flex: 1;
+  color: #333;
+}
+
+.reserva-info p {
+  margin: 0.3rem 0;
+  font-size: 1rem;
 }
 
 .reserva-status {
-  text-align: right;
+ display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
 }
+.botoes-reserva {
+  display: flex;
+  gap: 0.5rem;
+}
+
 
 .status.confirmada {
   color: green;
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .status.pendente {
   color: orange;
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
 .btn-cancelar {
-  background: #9f4429;
+  background: #a94127;
   color: white;
-  padding: 0.3rem 0.6rem;
+   padding: 6px 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   margin-right: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 
 .btn-editar {
-  background: #607744;
+  background: #486732;
   color: white;
-  padding: 0.3rem 0.6rem;
+    padding: 6px 12px;
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
 }
