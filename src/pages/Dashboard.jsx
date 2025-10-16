@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../services/api';
 import Sidebar from '../components/Sidebar';
 import ReservaCard from '../components/ReservaCard';
 import '../styles/dashboard.css';
