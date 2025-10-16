@@ -17,16 +17,26 @@ const Dashboard = () => {
     navigate('/login');
   };
 
-  useEffect(() => {
+  // No Dashboard.jsx, dentro do useEffect
+useEffect(() => {
+    const token = localStorage.getItem('token'); // GARANTIR que estamos lendo aqui
+
+    if (!token) {
+        console.log("Token não encontrado, redirecionando para login.");
+        navigate('/login');
+        return; // Sai do useEffect se não tiver token
+    }
+
     api.get('/reservas', {
-      headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => setReservas(res.data))
     .catch(err => {
-      console.error('Erro ao buscar reservas', err);
-      alert('Erro ao carregar reservas.');
+        console.error('Erro ao buscar reservas', err);
+        //  inspecionar o erro para ver se é 401 ou 404
+        alert('Erro ao carregar reservas.');
     });
-  }, [token]);
+}, [navigate]); // Removendo o '[token]' e usando '[navigate]'
 
   return (
     <div className="dashboard-container">
