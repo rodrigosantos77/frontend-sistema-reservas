@@ -18,7 +18,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/reservas', {
+    api.get('/reservas', {
       headers: { Authorization: `Bearer ${token}` }
     })
     .then(res => setReservas(res.data))
@@ -26,7 +26,7 @@ const Dashboard = () => {
       console.error('Erro ao buscar reservas', err);
       alert('Erro ao carregar reservas.');
     });
-  }, []);
+  }, [token]);
 
   return (
     <div className="dashboard-container">

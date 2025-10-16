@@ -49,7 +49,7 @@ const NovaReserva = () => {
   console.log("Dados enviados:", form); // <- veja no console do navegador
 
   try {
-    await axios.post('http://localhost:3000/api/reservas', form, {
+    await api.post('/reservas', form, {
       headers: {
         Authorization: `Bearer ${token}`
       }
