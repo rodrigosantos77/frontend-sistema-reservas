@@ -34,8 +34,8 @@ const Dashboard = () => {
         return;
     }
 
-    api.get('/reservas', {
-        headers: { Authorization: `Bearer ${currentToken}` } // Usa o token do usuário logado (Carlos)
+    api.get('/api/reservas', {
+        headers: { Authorization: `Bearer ${currentToken}` } // Usa o token do usuário logado (Usuario)
     })
     .then(res => setReservas(res.data))
     .catch(err => {
