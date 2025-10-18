@@ -60,6 +60,16 @@ const Login = () => {
       </form>
       {erro && <p style={{ color: 'red', marginTop: 10 }}>{erro}</p>}
       {sucesso && <p style={{ color: 'green', marginTop: 10 }}>{sucesso}</p>}
+
+    {/* ADICIONE ESTE BLOCO ABAIXO DAS MENSAGENS DE ERRO/SUCESSO: */}
+        <p style={{ marginTop: 15, textAlign: 'center' }}>
+          Não tem conta? <span 
+            onClick={() => navigate('/register')} 
+            style={{ color: 'blue', cursor: 'pointer', textDecoration: 'underline' }}>
+            Crie uma
+          </span>
+        </p>  
+
     </div>
   );
 };
