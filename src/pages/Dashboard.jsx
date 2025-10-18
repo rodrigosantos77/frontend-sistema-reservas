@@ -1,3 +1,4 @@
+// /home/devserudo/sistema-reservas/frontend/src/pages/Dashboard.jsx
 
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
@@ -8,6 +9,12 @@ import '../styles/dashboard.css';
 
 const Dashboard = () => {
   const [reservas, setReservas] = useState([]);
+  
+  // 1. LEITURA CORRETA DO USUÁRIO E TOKEN
+  const usuarioString = localStorage.getItem('usuario'); // Lê a string JSON do usuário
+  const usuario = usuarioString ? JSON.parse(usuarioString) : null; // Converte para objeto
+  const nomeUsuario = usuario ? usuario.nome : 'Cliente'; // Obtém o nome ou um valor padrão
+
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
 
@@ -17,30 +24,31 @@ const Dashboard = () => {
     navigate('/login');
   };
 
-  // No Dashboard.jsx, dentro do useEffect
-useEffect(() => {
-    const token = localStorage.getItem('token'); // GARANTIR que estamos lendo aqui
+  useEffect(() => {
+    // Leitura do token aqui para garantir que está atualizado
+    const currentToken = localStorage.getItem('token'); 
 
-    if (!token) {
+    if (!currentToken) {
         console.log("Token não encontrado, redirecionando para login.");
         navigate('/login');
-        return; // Sai do useEffect se não tiver token
+        return;
     }
 
     api.get('/reservas', {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${currentToken}` } // Usa o token do usuário logado (Carlos)
     })
     .then(res => setReservas(res.data))
     .catch(err => {
+        // Se o token do Carlos for inválido/expirado, aqui teremos um 401
         console.error('Erro ao buscar reservas', err);
-        //  inspecionar o erro para ver se é 401 ou 404
         alert('Erro ao carregar reservas.');
     });
-}, [navigate]); // Removendo o '[token]' e usando '[navigate]'
+  }, [navigate]); 
 
   return (
     <div className="dashboard-container">
-      <Sidebar nome="Rodrigo" onLogout={handleLogout} onNovaReserva={() => navigate('/nova-reserva')} />
+      {/* 2. CORREÇÃO: Usa o nome dinâmico lido do localStorage */}
+      <Sidebar nome={nomeUsuario} onLogout={handleLogout} onNovaReserva={() => navigate('/nova-reserva')} />
       <main className="dashboard-main">
         <h1>Minhas Reservas</h1>
         {reservas.length === 0 ? (
