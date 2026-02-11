@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import NovaReserva from './pages/NovaReserva';
+import Perfil from './pages/Perfil';
 import PrivateRoute from './components/PrivateRoute';
 import Register from './pages/Register'; // <-- 1. IMPORTAR O NOVO COMPONENTE
 
@@ -26,6 +27,17 @@ function App() {
             </PrivateRoute>
           }
         />
+
+          {/* 👇 pagina de perfil do usuario */}
+            <Route
+              path="/perfil"
+                element={
+                  <PrivateRoute>
+                    <Perfil />
+                  </PrivateRoute>
+                  }
+            />
+
             {/* 👇 pagina formulario de caddastro de reservas */}
         <Route
           path="/nova-reserva"
