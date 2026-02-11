@@ -34,7 +34,7 @@ const Dashboard = () => {
         return;
     }
 
-    api.get('/rota-reservas', {
+    api.get('/reservas', {
         headers: { Authorization: `Bearer ${currentToken}` } // Usa o token do usuário logado (Usuario)
     })
     .then(res => setReservas(res.data))

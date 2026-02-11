@@ -21,7 +21,8 @@ const Register = () => {
     try {
       // Rota correta para criar usuário: /api/usuarios (POST)
       // O 'api' já usa a VITE_API_URL que aponta para o Render
-           await api.post('/api/usuarios', {
+          await api.post('/usuarios', {
+
             nome, 
             email, 
             senha, 

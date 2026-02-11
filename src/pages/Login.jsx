@@ -17,7 +17,7 @@ const Login = () => {
 
     try {
       // Faz a requisição POST para login
-     const response = await api.post('/api/usuarios/login', { email, senha });
+     const response = await api.post('/usuarios/login', { email, senha });
       const { token, usuario } = response.data;
 
       // Armazena token e dados do usuário no localStorage

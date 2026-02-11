@@ -50,7 +50,7 @@ const NovaReserva = () => {
   console.log("Dados enviados:", form); // <- veja no console do navegador
 
   try {
-    await api.post('/reservas', form, {
+    await api.post('/api/reservas', form, {
       headers: {
         Authorization: `Bearer ${token}`
       }
