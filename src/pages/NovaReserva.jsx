@@ -38,20 +38,18 @@ const NovaReserva = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      await api.post('/api/reservas', form, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+  try {
+    await api.post('/reservas', form);
 
-      alert('Reserva criada com sucesso!');
-      navigate('/dashboard');
-    } catch (err) {
-      console.error(err.response?.data || err.message);
-      alert('Erro ao criar reserva.');
-    }
-  };
+    alert('Reserva criada com sucesso!');
+    navigate('/dashboard');
+  } catch (err) {
+    console.error(err.response?.data || err.message);
+    alert('Erro ao criar reserva.');
+  }
+};
 
   return (
     <div className="nova-reserva-container">
