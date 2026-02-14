@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import Sidebar from '../components/Sidebar';
 import ReservaCard from '../components/ReservaCard';
-
 import '../styles/dashboard.css';
 
 const Dashboard = () => {
@@ -45,18 +44,16 @@ const Dashboard = () => {
       return;
     }
 
-    api.get('/reservas', {
-      headers: {
-        Authorization: `Bearer ${currentToken}`
-      }
-    })
-      .then(res => {
-        setReservas(res.data);
-      })
-      .catch(err => {
-        console.error('Erro ao buscar reservas:', err.response?.data || err.message);
-        alert('Erro ao carregar reservas.');
-      });
+    api.get("/reservas")
+  .then(res => {
+    console.log("Resposta da API:", res.data);
+    console.log("Dados que vieram (res.data):", res.data);
+
+    setReservas(res.data);
+  })
+  .catch(err => {
+    console.error("Erro ao buscar reservas:", err.response?.data || err.message);
+  });
 
   }, [navigate]);
 
@@ -76,12 +73,18 @@ const Dashboard = () => {
         <h1>Minhas Reservas</h1>
 
         {reservas.length === 0 ? (
-          <p>Você não tem reservas cadastradas.</p>
-        ) : (
-          reservas.map(reserva => (
-            <ReservaCard key={reserva._id} reserva={reserva} />
-          ))
-        )}
+  <p>Você não tem reservas cadastradas.</p>
+) : (
+  reservas.map((reserva) => {
+
+     console.log("Reserva completa:", reserva);
+
+    return (
+      <ReservaCard key={reserva._id} reserva={reserva} />
+    );
+  })
+)}
+
       </main>
     </div>
   );

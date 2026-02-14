@@ -1,0 +1,110 @@
+.reserva-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid #eee;
+
+  transition: 0.2s ease;
+}
+
+.reserva-card:hover {
+  transform: translateY(-3px);
+}
+
+/* 🔹 Cabeçalho */
+.reserva-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.reserva-header h3 {
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* 🔹 Badge Status */
+.status {
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: capitalize;
+}
+
+.status.confirmada {
+  background: #d4f8d4;
+  color: #1b5e20;
+}
+
+.status.pendente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.cancelada {
+  background: #f8d7da;
+  color: #842029;
+}
+
+/* 🔹 Corpo */
+.reserva-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+}
+
+.info-item svg {
+  color: #444;
+}
+
+/* 🔹 Rodapé */
+.reserva-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* 🔹 Botões */
+.btn-cancelar,
+.btn-editar {
+  border: none;
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.btn-cancelar {
+  background: #c0392b;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background: #a93226;
+}
+
+.btn-editar {
+  background: #2e7d32;
+  color: white;
+}
+
+.btn-editar:hover {
+  background: #1b5e20;
+}
