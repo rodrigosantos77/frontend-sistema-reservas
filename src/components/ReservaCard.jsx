@@ -1,4 +1,6 @@
 import "../styles/reservaCard.css";
+import api from "../services/api"; // ✅ IMPORTANTE
+
 import {
   FaBed,
   FaMoneyBillWave,
@@ -8,7 +10,20 @@ import {
 
 export default function ReservaCard({ reserva }) {
 
-  console.log("📌 Reserva dentro do Card:", reserva);
+  const handleCancelar = async () => {
+    try {
+      await api.put(`/reservas/${reserva._id}`, {
+        status: "cancelada"
+      });
+
+      alert("Reserva cancelada com sucesso!");
+      window.location.reload();
+
+    } catch (error) {
+      console.error("Erro ao cancelar:", error.response?.data || error.message);
+      alert("Não foi possível cancelar a reserva.");
+    }
+  };
 
   return (
     <div className="reserva-card">
@@ -65,7 +80,15 @@ export default function ReservaCard({ reserva }) {
 
       {/* 🔹 Botões */}
       <div className="reserva-footer">
-        <button className="btn-cancelar">Cancelar</button>
+
+        <button
+          className="btn-cancelar"
+          onClick={handleCancelar}
+          disabled={reserva.status === "cancelada"}
+        >
+          {reserva.status === "cancelada" ? "Cancelada" : "Cancelar"}
+        </button>
+
         <button className="btn-editar">Editar</button>
       </div>
 

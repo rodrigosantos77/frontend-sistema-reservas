@@ -62,11 +62,29 @@ const Dashboard = () => {
           <p>Você não tem reservas cadastradas.</p>
         ) : (
           /* ✅ Scroll aparece aqui */
-          <div className="reservas-container">
-            {reservas.map((reserva) => (
-              <ReservaCard key={reserva._id} reserva={reserva} />
-            ))}
+            
+            <div className="reservas-container">
+                {reservas.length === 0 ? (
+                  <p>Você não tem reservas cadastradas.</p>
+                ) : (
+                  reservas.map((reserva) => (
+                    <ReservaCard
+                      key={reserva._id}
+                      reserva={reserva}
+                      onCancelar={(id) => {
+                        setReservas((prevReservas) =>
+                          prevReservas.map((r) =>
+                            r._id === id
+                              ? { ...r, status: "cancelada" }
+                              : r
+                          )
+                        );
+                      }}
+                    />
+                  ))
+                )}
           </div>
+
         )}
       </main>
     </div>
