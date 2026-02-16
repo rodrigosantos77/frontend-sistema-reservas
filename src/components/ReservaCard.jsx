@@ -1,5 +1,6 @@
 import "../styles/reservaCard.css";
-import api from "../services/api"; // ✅ IMPORTANTE
+import api from "../services/api";
+import Swal from "sweetalert2";
 
 import {
   FaBed,
@@ -8,20 +9,47 @@ import {
   FaCalendarAlt
 } from "react-icons/fa";
 
-export default function ReservaCard({ reserva }) {
+export default function ReservaCard({ reserva, onAtualizar }) {
 
+  // ============================
+  // ✅ CANCELAR RESERVA
+  // ============================
   const handleCancelar = async () => {
+    const confirmacao = await Swal.fire({
+      title: "Cancelar reserva?",
+      text: "Essa ação vai marcar a reserva como cancelada.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sim, cancelar",
+      cancelButtonText: "Não"
+    });
+
+    if (!confirmacao.isConfirmed) return;
+
     try {
       await api.put(`/reservas/${reserva._id}`, {
         status: "cancelada"
       });
 
-      alert("Reserva cancelada com sucesso!");
-      window.location.reload();
+      await Swal.fire(
+        "Cancelada!",
+        "Reserva cancelada com sucesso.",
+        "success"
+      );
+
+      // ✅ Atualiza lista sem reload
+      if (onAtualizar) {
+        onAtualizar();
+      }
 
     } catch (error) {
       console.error("Erro ao cancelar:", error.response?.data || error.message);
-      alert("Não foi possível cancelar a reserva.");
+
+      Swal.fire(
+        "Erro!",
+        "Não foi possível cancelar a reserva.",
+        "error"
+      );
     }
   };
 
@@ -80,18 +108,14 @@ export default function ReservaCard({ reserva }) {
 
       {/* 🔹 Botões */}
       <div className="reserva-footer">
-
-        <button
-          className="btn-cancelar"
-          onClick={handleCancelar}
-          disabled={reserva.status === "cancelada"}
-        >
-          {reserva.status === "cancelada" ? "Cancelada" : "Cancelar"}
+        <button className="btn-cancelar" onClick={handleCancelar}>
+          Cancelar
         </button>
 
-        <button className="btn-editar">Editar</button>
+        <button className="btn-editar">
+          Editar
+        </button>
       </div>
-
     </div>
   );
 }

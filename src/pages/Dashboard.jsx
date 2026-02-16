@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -8,13 +9,11 @@ import "../styles/dashboard.css";
 
 const Dashboard = () => {
   const [reservas, setReservas] = useState([]);
-
   const navigate = useNavigate();
 
   // ✅ Usuário logado
   const usuarioString = localStorage.getItem("usuario");
   const usuario = usuarioString ? JSON.parse(usuarioString) : null;
-
   const nomeUsuario = usuario ? usuario.nome : "Cliente";
 
   // ✅ Logout
@@ -24,7 +23,27 @@ const Dashboard = () => {
     navigate("/login");
   };
 
-  // ✅ Buscar reservas do usuário
+  // ==============================
+  // ✅ Função oficial para carregar reservas
+  // ==============================
+  const carregarReservas = () => {
+    api
+      .get("/reservas")
+      .then((res) => {
+        setReservas(res.data);
+      })
+      .catch((err) => {
+        console.error(
+          "Erro ao buscar reservas:",
+          err.response?.data || err.message
+        );
+        alert("Erro ao carregar reservas.");
+      });
+  };
+
+  // ==============================
+  // ✅ Carrega reservas quando abrir Dashboard
+  // ==============================
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -33,15 +52,7 @@ const Dashboard = () => {
       return;
     }
 
-    api
-      .get("/reservas")
-      .then((res) => {
-        setReservas(res.data);
-      })
-      .catch((err) => {
-        console.error("Erro ao buscar reservas:", err.response?.data || err.message);
-        alert("Erro ao carregar reservas.");
-      });
+    carregarReservas();
   }, [navigate]);
 
   return (
@@ -61,30 +72,15 @@ const Dashboard = () => {
         {reservas.length === 0 ? (
           <p>Você não tem reservas cadastradas.</p>
         ) : (
-          /* ✅ Scroll aparece aqui */
-            
-            <div className="reservas-container">
-                {reservas.length === 0 ? (
-                  <p>Você não tem reservas cadastradas.</p>
-                ) : (
-                  reservas.map((reserva) => (
-                    <ReservaCard
-                      key={reserva._id}
-                      reserva={reserva}
-                      onCancelar={(id) => {
-                        setReservas((prevReservas) =>
-                          prevReservas.map((r) =>
-                            r._id === id
-                              ? { ...r, status: "cancelada" }
-                              : r
-                          )
-                        );
-                      }}
-                    />
-                  ))
-                )}
+          <div className="reservas-container">
+            {reservas.map((reserva) => (
+              <ReservaCard
+                key={reserva._id}
+                reserva={reserva}
+                onAtualizar={carregarReservas} // ✅ ESSENCIAL
+              />
+            ))}
           </div>
-
         )}
       </main>
     </div>
