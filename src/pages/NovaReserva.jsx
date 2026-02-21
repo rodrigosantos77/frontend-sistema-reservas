@@ -9,6 +9,7 @@ const NovaReserva = () => {
     dataEntrada: '',
     dataSaida: '',
     numeroQuarto: '',
+    numeroPessoas :'',  //campo estava faltando
     status: 'pendente',
     valor: '',
     formaPagamento: '',
@@ -29,10 +30,10 @@ const NovaReserva = () => {
     if (type === 'checkbox') novoValor = checked;
 
     if (
-      ['valor', 'numeroQuarto', 'numeroToalhas', 'numeroLencois'].includes(name)
-    ) {
-      novoValor = Number(value);
-    }
+  ['valor', 'numeroQuarto', 'numeroToalhas', 'numeroLencois', 'numeroPessoas'].includes(name)) 
+  {
+  novoValor = Number(value);
+  }
 
     setForm((prev) => ({ ...prev, [name]: novoValor }));
   };
@@ -93,6 +94,20 @@ const NovaReserva = () => {
         required
       />
     </div>
+
+    {/* NÚMERO DE PESSOAS */}
+<div>
+  <label>Número de Pessoas</label>
+  <input
+    type="number"
+    name="numeroPessoas"
+    min="1"
+    max="4"
+    value={form.numeroPessoas}
+    onChange={handleChange}
+    required
+  />
+</div>
 
     {/* STATUS */}
     <div>

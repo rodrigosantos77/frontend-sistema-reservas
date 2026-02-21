@@ -94,17 +94,21 @@ export default function ReservaCard({ reserva, onAtualizar }) {
     if (!formValues) return;
 
     try {
-      await api.put(`/reservas/${reserva._id}`, formValues);
 
-      await Swal.fire("Atualizada!", "Reserva editada com sucesso.", "success");
+  console.log("Enviando para o backend:", formValues);
 
-      if (onAtualizar) onAtualizar();
+  await api.put(`/reservas/${reserva._id}`, formValues);
 
-    } catch (error) {
-      console.error(error.response?.data || error.message);
+  await Swal.fire("Atualizada!", "Reserva editada com sucesso.", "success");
 
-      Swal.fire("Erro!", "Não foi possível editar a reserva.", "error");
-    }
+  if (onAtualizar) onAtualizar();
+
+} catch (error) {
+
+  console.log("Erro vindo do backend:", error.response?.data);
+
+  Swal.fire("Erro!", "Não foi possível editar a reserva.", "error");
+}
   };
 
   return (
@@ -127,14 +131,14 @@ export default function ReservaCard({ reserva, onAtualizar }) {
         <div className="info-item">
           <FaCalendarAlt />
           <p><strong>Check-in:</strong>{" "}
-            {new Date(reserva.dataEntrada).toLocaleDateString("pt-BR")}
+            {reserva.dataEntrada?.split("T")[0].split("-").reverse().join("/")}
           </p>
         </div>
 
         <div className="info-item">
           <FaCalendarAlt />
           <p><strong>Check-out:</strong>{" "}
-            {new Date(reserva.dataSaida).toLocaleDateString("pt-BR")}
+            {reserva.dataSaida?.split("T")[0].split("-").reverse().join("/")}
           </p>
         </div>
 
