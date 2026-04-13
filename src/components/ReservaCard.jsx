@@ -1,5 +1,3 @@
-
-
 import "../styles/reservaCard.css";
 import api from "../services/api";
 import Swal from "sweetalert2";
@@ -13,6 +11,10 @@ import {
 } from "react-icons/fa";
 
 export default function ReservaCard({ reserva, onAtualizar }) {
+  const valorFormatado = Number(reserva.valor || 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
 
   // ============================
   // ✅ CANCELAR RESERVA
@@ -37,7 +39,6 @@ export default function ReservaCard({ reserva, onAtualizar }) {
       await Swal.fire("Cancelada!", "Reserva cancelada com sucesso.", "success");
 
       if (onAtualizar) onAtualizar();
-
     } catch (error) {
       Swal.fire("Erro!", "Não foi possível cancelar.", "error");
     }
@@ -47,7 +48,6 @@ export default function ReservaCard({ reserva, onAtualizar }) {
   // ✅ EDITAR RESERVA (MODAL)
   // ============================
   const handleEditar = async () => {
-
     const { value: formValues } = await Swal.fire({
       title: "Editar Reserva",
       html: `
@@ -94,26 +94,22 @@ export default function ReservaCard({ reserva, onAtualizar }) {
     if (!formValues) return;
 
     try {
+      console.log("Enviando para o backend:", formValues);
 
-  console.log("Enviando para o backend:", formValues);
+      await api.put(`/reservas/${reserva._id}`, formValues);
 
-  await api.put(`/reservas/${reserva._id}`, formValues);
+      await Swal.fire("Atualizada!", "Reserva editada com sucesso.", "success");
 
-  await Swal.fire("Atualizada!", "Reserva editada com sucesso.", "success");
+      if (onAtualizar) onAtualizar();
+    } catch (error) {
+      console.log("Erro vindo do backend:", error.response?.data);
 
-  if (onAtualizar) onAtualizar();
-
-} catch (error) {
-
-  console.log("Erro vindo do backend:", error.response?.data);
-
-  Swal.fire("Erro!", "Não foi possível editar a reserva.", "error");
-}
+      Swal.fire("Erro!", "Não foi possível editar a reserva.", "error");
+    }
   };
 
   return (
     <div className="reserva-card">
-
       {/* Cabeçalho */}
       <div className="reserva-header">
         <h3>
@@ -127,29 +123,31 @@ export default function ReservaCard({ reserva, onAtualizar }) {
 
       {/* Corpo */}
       <div className="reserva-body">
-
         <div className="info-item">
           <FaCalendarAlt />
-          <p><strong>Check-in:</strong>{" "}
+          <p>
+            <strong>Check-in:</strong>{" "}
             {reserva.dataEntrada?.split("T")[0].split("-").reverse().join("/")}
           </p>
         </div>
 
         <div className="info-item">
           <FaCalendarAlt />
-          <p><strong>Check-out:</strong>{" "}
+          <p>
+            <strong>Check-out:</strong>{" "}
             {reserva.dataSaida?.split("T")[0].split("-").reverse().join("/")}
           </p>
         </div>
 
-        <div className="info-item">
+        <div className="info-item valor-destaque">
           <FaMoneyBillWave />
-          <p><strong>Valor:</strong> R$ {reserva.valor}</p>
+            <p>{valorFormatado}</p>
         </div>
 
         <div className="info-item">
           <FaCoffee />
-          <p><strong>Café:</strong>{" "}
+          <p>
+            <strong>Café:</strong>{" "}
             {reserva.cafeDaManha ? "Sim ☕" : "Não"}
           </p>
         </div>

@@ -54,6 +54,23 @@
   color: #842029;
 }
 
+/* 🔹 Badge valor */
+.valor-destaque {
+  background: #e6f4ea;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #2e7d32;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.valor-destaque p {
+  margin: 0;
+  font-size: 16px;
+}
+
 /* 🔹 Corpo */
 .reserva-body {
   display: grid;
