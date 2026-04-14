@@ -11,6 +11,15 @@ const Dashboard = () => {
   const [reservas, setReservas] = useState([]);
   const navigate = useNavigate();
 
+      const totalFaturado = reservas.reduce((total, reserva) => {
+    return total + Number(reserva.valor || 0);
+  }, 0);
+
+  const totalFormatado = totalFaturado.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+  });
+
   // ✅ Usuário logado
   const usuarioString = localStorage.getItem("usuario");
   const usuario = usuarioString ? JSON.parse(usuarioString) : null;
@@ -68,6 +77,7 @@ const Dashboard = () => {
       {/* ✅ Conteúdo principal */}
       <main className="dashboard-main">
         <h1>Minhas Reservas</h1>
+<h2 className="total-faturado">💰 Total faturado: {totalFormatado}</h2>
 
         {reservas.length === 0 ? (
           <p>Você não tem reservas cadastradas.</p>

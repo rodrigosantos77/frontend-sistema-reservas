@@ -179,3 +179,16 @@ body {
   font-size: 0.9rem;
   cursor: pointer;
 }
+
+/* Botao de soma das reservas do cliente */
+.total-faturado {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #2e7d32;
+  background: #e6f4ea;
+  padding: 10px 15px;
+  border-radius: 8px;
+  display: inline-block;
+  font-weight: bold;
+}
