@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +8,10 @@ import "../styles/dashboard.css";
 
 const Dashboard = () => {
   const [reservas, setReservas] = useState([]);
+  const [filtroStatus, setFiltroStatus] = useState("todas");
   const navigate = useNavigate();
 
-      const totalFaturado = reservas.reduce((total, reserva) => {
+  const totalFaturado = reservas.reduce((total, reserva) => {
     return total + Number(reserva.valor || 0);
   }, 0);
 
@@ -19,6 +19,13 @@ const Dashboard = () => {
     style: "currency",
     currency: "BRL",
   });
+
+  const reservasFiltradas =
+    filtroStatus === "todas"
+      ? reservas
+      : reservas.filter(
+          (reserva) => reserva.status?.toLowerCase() === filtroStatus
+        );
 
   // ✅ Usuário logado
   const usuarioString = localStorage.getItem("usuario");
@@ -66,7 +73,6 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
-      {/* ✅ Sidebar */}
       <Sidebar
         nome={nomeUsuario}
         onLogout={handleLogout}
@@ -74,20 +80,56 @@ const Dashboard = () => {
         onPerfil={() => navigate("/perfil")}
       />
 
-      {/* ✅ Conteúdo principal */}
       <main className="dashboard-main">
         <h1>Minhas Reservas</h1>
-<h2 className="total-faturado">💰 Total faturado: {totalFormatado}</h2>
+        <h2 className="total-faturado">💰 Total faturado: {totalFormatado}</h2>
 
-        {reservas.length === 0 ? (
-          <p>Você não tem reservas cadastradas.</p>
+        <div className="filtros-reservas">
+          <button
+            className={filtroStatus === "todas" ? "filtro-btn ativo" : "filtro-btn"}
+            onClick={() => setFiltroStatus("todas")}
+          >
+            Todas
+          </button>
+
+          <button
+            className={filtroStatus === "pendente" ? "filtro-btn ativo" : "filtro-btn"}
+            onClick={() => setFiltroStatus("pendente")}
+          >
+            Pendentes
+          </button>
+
+          <button
+            className={filtroStatus === "checkin" ? "filtro-btn ativo" : "filtro-btn"}
+            onClick={() => setFiltroStatus("checkin")}
+          >
+            Check-in
+          </button>
+
+          <button
+            className={filtroStatus === "checkout" ? "filtro-btn ativo" : "filtro-btn"}
+            onClick={() => setFiltroStatus("checkout")}
+          >
+            Checkout
+          </button>
+
+          <button
+            className={filtroStatus === "cancelada" ? "filtro-btn ativo" : "filtro-btn"}
+            onClick={() => setFiltroStatus("cancelada")}
+          >
+            Canceladas
+          </button>
+        </div>
+
+        {reservasFiltradas.length === 0 ? (
+          <p>Nenhuma reserva encontrada para esse filtro.</p>
         ) : (
           <div className="reservas-container">
-            {reservas.map((reserva) => (
+            {reservasFiltradas.map((reserva) => (
               <ReservaCard
                 key={reserva._id}
                 reserva={reserva}
-                onAtualizar={carregarReservas} // ✅ ESSENCIAL
+                onAtualizar={carregarReservas}
               />
             ))}
           </div>
