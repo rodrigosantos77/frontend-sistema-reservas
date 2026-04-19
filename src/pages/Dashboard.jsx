@@ -11,6 +11,8 @@ const Dashboard = () => {
   const [filtroStatus, setFiltroStatus] = useState("todas");
   const navigate = useNavigate();
 
+  const totalReservas = reservas.length;
+
   const totalFaturado = reservas.reduce((total, reserva) => {
     return total + Number(reserva.valor || 0);
   }, 0);
@@ -19,6 +21,14 @@ const Dashboard = () => {
     style: "currency",
     currency: "BRL",
   });
+
+  const reservasPendentes = reservas.filter(
+    (reserva) => reserva.status?.toLowerCase() === "pendente"
+  ).length;
+
+  const reservasFinalizadas = reservas.filter(
+    (reserva) => reserva.status?.toLowerCase() === "checkout"
+  ).length;
 
   const reservasFiltradas =
     filtroStatus === "todas"
@@ -82,7 +92,28 @@ const Dashboard = () => {
 
       <main className="dashboard-main">
         <h1>Minhas Reservas</h1>
-        <h2 className="total-faturado">💰 Total faturado: {totalFormatado}</h2>
+
+        <div className="dashboard-resumo-cards">
+          <div className="resumo-card">
+            <h3>Total de reservas</h3>
+            <p>{totalReservas}</p>
+          </div>
+
+          <div className="resumo-card">
+            <h3>Total faturado</h3>
+            <p>{totalFormatado}</p>
+          </div>
+
+          <div className="resumo-card">
+            <h3>Reservas pendentes</h3>
+            <p>{reservasPendentes}</p>
+          </div>
+
+          <div className="resumo-card">
+            <h3>Reservas finalizadas</h3>
+            <p>{reservasFinalizadas}</p>
+          </div>
+        </div>
 
         <div className="filtros-reservas">
           <button

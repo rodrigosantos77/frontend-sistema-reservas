@@ -1,12 +1,10 @@
 .reserva-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 20px;
-  margin-bottom: 25px;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid #eee;
-
+  background: #fffdfa;
+  border-radius: 20px;
+  padding: 24px 24px 22px;
+  margin-bottom: 6px;
+  box-shadow: 0 8px 24px rgba(66, 38, 19, 0.08);
+  border: 1px solid #f0e4d8;
   transition: 0.2s ease;
 }
 
@@ -14,28 +12,28 @@
   transform: translateY(-3px);
 }
 
-/* 🔹 Cabeçalho */
 .reserva-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .reserva-header h3 {
-  font-size: 20px;
+  font-size: 2rem;
   font-weight: bold;
   display: flex;
   gap: 8px;
   align-items: center;
+  margin: 0;
+  color: #223247;
 }
 
-/* 🔹 Badge Status */
 .status {
-  padding: 6px 14px;
-  border-radius: 12px;
+  padding: 7px 14px;
+  border-radius: 14px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.92rem;
   text-transform: capitalize;
 }
 
@@ -45,8 +43,8 @@
 }
 
 .status.pendente {
-  background: #fff3cd;
-  color: #856404;
+  background: #f9e6b8;
+  color: #9b6500;
 }
 
 .status.cancelada {
@@ -54,74 +52,113 @@
   color: #842029;
 }
 
-/* 🔹 Badge valor */
-.valor-destaque {
-  background: #e6f4ea;
-  padding: 8px 12px;
-  border-radius: 8px;
-  font-weight: bold;
-  color: #2e7d32;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.status.checkout {
+  background: #dde8ff;
+  color: #2f5ca8;
 }
 
-.valor-destaque p {
-  margin: 0;
-  font-size: 16px;
+.status.checkin {
+  background: #d8f1ff;
+  color: #176b87;
 }
 
-/* 🔹 Corpo */
 .reserva-body {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin-bottom: 20px;
+  grid-template-columns: 1.1fr 1.2fr;
+  gap: 18px 30px;
+  margin-bottom: 22px;
 }
 
 .info-item {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 15px;
+  font-size: 1.02rem;
+  color: #2c2018;
+}
+
+.info-item p {
+  margin: 0;
 }
 
 .info-item svg {
-  color: #444;
+  color: #2b3340;
 }
 
-/* 🔹 Rodapé */
+.valor-destaque {
+  background: #dde9de;
+  padding: 13px 16px;
+  border-radius: 12px;
+  font-weight: bold;
+  color: #1f6b3a;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  min-width: 145px;
+}
+
+.valor-destaque p {
+  margin: 0;
+  font-size: 1.04rem;
+}
+
+.valor-destaque svg {
+  color: #2b2f35;
+}
+
 .reserva-footer {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
 }
 
-/* 🔹 Botões */
 .btn-cancelar,
 .btn-editar {
   border: none;
-  padding: 8px 18px;
-  border-radius: 10px;
+  padding: 10px 18px;
+  border-radius: 12px;
   font-weight: bold;
+  font-size: 0.96rem;
   cursor: pointer;
   transition: 0.2s ease;
 }
 
 .btn-cancelar {
-  background: #c0392b;
+  background: linear-gradient(90deg, #c54a2c, #aa321f);
   color: white;
+  box-shadow: 0 8px 16px rgba(170, 50, 31, 0.18);
 }
 
 .btn-cancelar:hover {
-  background: #a93226;
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 .btn-editar {
-  background: #2e7d32;
+  background: linear-gradient(90deg, #507b36, #386327);
   color: white;
+  box-shadow: 0 8px 16px rgba(56, 99, 39, 0.18);
 }
 
 .btn-editar:hover {
-  background: #1b5e20;
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .reserva-body {
+    grid-template-columns: 1fr;
+  }
+
+  .reserva-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .reserva-footer {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }
